@@ -1,10 +1,13 @@
 package com.javaweb.model;
 
+import com.javaweb.repository.entity.DistrictEntity;
+
 //Data Transfer Object
 public class BuildingDTO {
 	private String name;
-	private Integer numberOfBasement;
+	private Long numberOfBasement;
 	private String address;
+	private String rentArea;
 
 	public String getName() {
 		return name;
@@ -14,11 +17,11 @@ public class BuildingDTO {
 		this.name = name;
 	}
 
-	public Integer getNumberOfBasement() {
+	public Long getNumberOfBasement() {
 		return numberOfBasement;
 	}
 
-	public void setNumberOfBasement(Integer numberOfBasement) {
+	public void setNumberOfBasement(Long numberOfBasement) {
 		this.numberOfBasement = numberOfBasement;
 	}
 
@@ -29,12 +32,21 @@ public class BuildingDTO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
+
+	public String getRentArea() {
+		return rentArea;
+	}
+
+	public void setRentArea(String rentArea) {
+		this.rentArea = rentArea;
+	}
 
 	@Override
 	public String toString() {
-		return "BuildingDTO [name=" + name + ", numberOfBasement=" + numberOfBasement + ", address=" + address + "]";
+		return "BuildingDTO [name=" + name + ", numberOfBasement=" + numberOfBasement + ", address=" + address
+				+ ", rentArea=" + rentArea + "]";
 	}
 
 	
-
 }

@@ -2,15 +2,23 @@ package com.javaweb.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.print.attribute.standard.Sides;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.javaweb.builder.BuildingSearchBuilder;
+import com.javaweb.converter.BuildingDTOConverter;
+import com.javaweb.converter.BuildingSearchBuilderConverter;
 import com.javaweb.model.BuildingDTO;
 import com.javaweb.repository.BuildingResponsitory;
+import com.javaweb.repository.RentAreaReposotory;
 import com.javaweb.repository.entity.BuildingEntity;
+import com.javaweb.repository.entity.RentAreaEntity;
 import com.javaweb.service.BuildingService;
 
 @Service
@@ -18,18 +26,23 @@ public class BuildingServiceImpl implements BuildingService{
 	@Autowired
 	private BuildingResponsitory buildingResponsitory;
 	
+	@Autowired
+	private RentAreaReposotory rentAreaReposotory;
+	
+	@Autowired
+	private BuildingDTOConverter buildingDTOConverter;
+	
+	@Autowired
+	private BuildingSearchBuilderConverter buildingSearchBuilderConverter;
+	
 	@Override
-	public List<BuildingDTO> findAll(String name, Long districtid) {
-		List<BuildingEntity> buildingEntities = buildingResponsitory.findAll(name, districtid);
+	public List<BuildingDTO> findAll(Map<String, Object> params, List<String> typeCode) {
+		BuildingSearchBuilder buildingSearchBuilder = buildingSearchBuilderConverter.convertToBuildingSearchBuilder(params, typeCode);
+		List<BuildingEntity> buildingEntities = buildingResponsitory.findAll(buildingSearchBuilder);
 		List<BuildingDTO> result = new ArrayList<BuildingDTO>();
-		//ủa hom xuong dc repo luôn 
 		for(BuildingEntity b: buildingEntities) {
-			BuildingDTO building = new BuildingDTO();
-			building.setName(b.getName());
-			building.setNumberOfBasement(b.getNumberOfBasement());
-			building.setAddress(b.getStreet() + " " + b.getWard());
+			BuildingDTO building = buildingDTOConverter.convertToBuildingDTO(b);
 			result.add(building);
-			System.out.println(building);
 		}
 		return result; 
 	}

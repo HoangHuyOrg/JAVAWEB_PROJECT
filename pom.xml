@@ -23,5 +23,11 @@
 			<artifactId>mssql-jdbc</artifactId>
 			<version>11.2.0.jre8</version> <!-- Phiên bản có thể thay đổi -->
 		</dependency>
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>3.1.1</version>
+		</dependency>
+
 	</dependencies>
 </project>

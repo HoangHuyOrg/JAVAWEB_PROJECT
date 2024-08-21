@@ -3,6 +3,7 @@ package com.javaweb.api;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,10 +33,9 @@ public class NewAPI {
 	private BuildingService buildingService;
 		
 	@GetMapping(value = "/api/building/")
-	public List<BuildingDTO> getBuilding(@RequestParam(name="name", required = false) String name,
-			@RequestParam(name="districtid", required = false) Long district) {
-		int c;
-		List<BuildingDTO> buildingDTOs = buildingService.findAll(name, district);
+	public List<BuildingDTO> getBuilding(@RequestParam Map<String, Object> params,
+											@RequestParam(name="typeCode", required = false) List<String> typecode) {
+		List<BuildingDTO> buildingDTOs = buildingService.findAll(params, typecode);
 		System.out.println(buildingDTOs.size());
 		return buildingDTOs;
 	}
