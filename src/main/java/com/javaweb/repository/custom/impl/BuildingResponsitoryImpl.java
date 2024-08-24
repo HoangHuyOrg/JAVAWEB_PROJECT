@@ -1,4 +1,4 @@
-package com.javaweb.repository.impl;
+package com.javaweb.repository.custom.impl;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -13,6 +13,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import com.javaweb.builder.BuildingSearchBuilder;
 import com.javaweb.model.BuildingDTO;
 import com.javaweb.repository.BuildingResponsitory;
 import com.javaweb.repository.DistrictRepository;
+import com.javaweb.repository.custom.BuildingRepositoryCustom;
 import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.repository.entity.DistrictEntity;
 import com.javaweb.repository.entity.RentAreaEntity;
@@ -30,7 +32,8 @@ import com.javaweb.utils.NumberUtil;
 import com.javaweb.utils.StringUtil;
 
 @Repository
-public class JDBCBuildingResponsitoryImpl implements BuildingResponsitory {
+public class BuildingResponsitoryImpl implements BuildingRepositoryCustom{
+	@PersistenceContext
 	private EntityManager entityManager;
 
 	public void joinTable(BuildingSearchBuilder buildingSearchBuilder, StringBuilder sql) {
@@ -141,7 +144,7 @@ public class JDBCBuildingResponsitoryImpl implements BuildingResponsitory {
 
 		List<BuildingEntity> result = new ArrayList<BuildingEntity>();
 		StringBuilder sql = new StringBuilder(
-				"select distinct id, numberofbasement, name, ward, street, floorarea, districtid, managername, managerphonenumber, servicefee, brokeragefee from building b");
+				"select distinct b.* from building b");
 		
 //		StringBuilder sql = new StringBuilder(
 //				"select distinct b.* from building b");
@@ -154,6 +157,11 @@ public class JDBCBuildingResponsitoryImpl implements BuildingResponsitory {
 		querySpecial(buildingSearchBuilder, where);
 
 		sql.append(where);
+		System.out.println(sql);
+		// Kiểm tra entityManager
+	    if (entityManager == null) {
+	        throw new IllegalStateException("EntityManager is null");
+	    }
 		Query query = entityManager.createNativeQuery(sql.toString(), BuildingEntity.class);
 
 		return query.getResultList();

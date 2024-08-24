@@ -11,7 +11,7 @@ public class MapUtil {
 				obj = obj != "" ? Long.valueOf(obj.toString()) : null;
 			} else if (tClass.getTypeName().equals("java.lang.Integer")) {
 				obj = obj != "" ? Integer.valueOf(obj.toString()) : null;
-			} else if (tClass.getTypeName().equals("java.lang.String")) {
+			} else if (tClass.getTypeName().equals("java.lang.Float")) {
 				obj = obj != "" && obj != null ? Float.valueOf(obj.toString()) : null;
 			}
 			return tClass.cast(obj);

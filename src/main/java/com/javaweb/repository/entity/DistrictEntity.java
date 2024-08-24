@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.sym.Name;
 
 @Entity
@@ -26,6 +27,7 @@ public class DistrictEntity {
 	private String name;
 
 	@OneToMany(mappedBy = "district", fetch = FetchType.LAZY)
+//	@JsonIgnore
 	private List<BuildingEntity> buildings;
 	
 	public DistrictEntity() {
