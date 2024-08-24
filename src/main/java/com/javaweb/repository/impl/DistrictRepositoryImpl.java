@@ -1,4 +1,4 @@
-package com.javaweb.repository.impl;
+ package com.javaweb.repository.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,28 +12,27 @@ import com.javaweb.repository.DistrictRepository;
 import com.javaweb.repository.entity.DistrictEntity;
 import com.javaweb.utils.ConnectDbUtil;
 
-@Repository
-public class DistrictRepositoryImpl implements DistrictRepository {
+public class DistrictRepositoryImpl{
 
-	@Override
-	public DistrictEntity findByID(Long districtId) {
-		DistrictEntity result = new DistrictEntity();
-		try (Connection conn = ConnectDbUtil.getConnection()) {
-			StringBuilder sql = new StringBuilder("select * from district d where id = " + districtId);
-
-			PreparedStatement stm = conn.prepareStatement(sql.toString());
-			ResultSet rs = stm.executeQuery();
-
-			if (rs.next()) {
-				result.setId(rs.getLong("id"));
-				result.setName(rs.getString("name"));
-			}
-
-		} catch (SQLException e) {
-			System.out.println("Lỗi SQL: " + e.getMessage());
-			System.out.println("Connected database failed...");
-		}
-		return result;
-	}
+//	@Override
+//	public DistrictEntity findByID(Long districtId) {
+//		DistrictEntity result = new DistrictEntity();
+//		try (Connection conn = ConnectDbUtil.getConnection()) {
+//			StringBuilder sql = new StringBuilder("select * from district d where id = " + districtId);
+//
+//			PreparedStatement stm = conn.prepareStatement(sql.toString());
+//			ResultSet rs = stm.executeQuery();
+//
+//			if (rs.next()) {
+//				result.setId(rs.getLong("id"));
+//				result.setName(rs.getString("name"));
+//			}
+//
+//		} catch (SQLException e) {
+//			System.out.println("Lỗi SQL: " + e.getMessage());
+//			System.out.println("Connected database failed...");
+//		}
+//		return result;
+//	}
 
 }

@@ -2,12 +2,21 @@ package com.javaweb.utils;
 
 import java.sql.*;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+
 import com.javaweb.repository.entity.RentAreaEntity;
 
+@PropertySource("classpath:application-uat.properties")
 public class ConnectDbUtil {
-	static final String DB_URL = "jdbc:sqlserver://localhost:1433;databaseName=estatebasic;encrypt=true;trustServerCertificate=true";
-	static final String USER = "sa";
-	static final String PASS = "123";
+	@Value("${spring.datasource.url}")
+	static String DB_URL;
+	
+	@Value("${spring.datasource.username}")
+	static String USER;
+	
+	@Value("${spring.datasource.password}")
+	static String PASS;
 
 	public static Connection getConnection() {
 		Connection conn = null;
